@@ -19,25 +19,49 @@
                 android:id="@+id/profile_image"
                 android:layout_width="96dp"
                 android:layout_height="96dp"
-                android:src="@drawable/ic_launcher_background"
-                app:civ_border_width="2dp"
-                app:civ_border_color="#FF000000"/>
+                android:layout_marginBottom="20dp"
+                android:src="@mipmap/logo"/>
 
         <EditText
+                android:id="@+id/emailEditText"
                 android:paddingLeft="10dp"
+                android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
+                android:inputType="textEmailAddress"
+                android:text="giorgi1997arabuli@gmail.com"
+                android:paddingBottom="20dp"
                 android:hint="Email"
                 android:layout_height="wrap_content"/>
         <EditText
+                android:id="@+id/passwordEditText"
                 android:paddingLeft="10dp"
                 android:layout_width="match_parent"
+                android:inputType="textPassword"
+                android:text="giorgi0203"
+                android:layout_marginBottom="20dp"
+                android:paddingBottom="20dp"
                 android:hint="Password"
                 android:layout_height="wrap_content"/>
         <Button
+                android:id="@+id/loginBtn"
                 android:layout_gravity="center"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-        android:text="Login"/>
+                android:text="Login"/>
+        <Button
+                android:id="@+id/goRegisterBtn"
+                android:layout_gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Register"/>
+
+
     </LinearLayout>
+    <TextView
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="bottom|center"
+            android:text="Created by Giorgi Arabuli!"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
 </FrameLayout>
