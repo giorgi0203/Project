@@ -5,11 +5,9 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.example.project.module.auth.LoginActivity
-import com.example.project.module.user.DashboardActivity
-import com.example.project.module.user.User
+import com.example.project.module.user.dashboard.DashboardActivity
+import com.example.project.module.user.AuthData
 import com.google.firebase.auth.FirebaseAuth
-import java.util.*
-import kotlin.concurrent.schedule
 
 class SplashScreen : AppCompatActivity() {
 
@@ -23,10 +21,10 @@ class SplashScreen : AppCompatActivity() {
 
     private fun init() {
         //setup firebase auth
-        User.auth = FirebaseAuth.getInstance()
+        AuthData.auth = FirebaseAuth.getInstance()
 
         //check for auth
-        if (User.auth!!.currentUser != null){
+        if (AuthData.auth!!.currentUser != null){
             Handler().postDelayed({
                 val intent = Intent(applicationContext, DashboardActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK

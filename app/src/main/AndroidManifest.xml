@@ -10,7 +10,7 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".module.user.DashboardActivity">
+        <activity android:name=".module.user.dashboard.DashboardActivity">
         </activity>
         <activity android:name=".module.user.ProfileActivity">
         </activity>

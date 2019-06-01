@@ -5,10 +5,8 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.project.R
-import com.example.project.module.user.DashboardActivity
-import com.example.project.module.user.User
-import com.example.project.module.user.User.Companion.auth
-import com.google.firebase.auth.FirebaseAuth
+import com.example.project.module.user.dashboard.DashboardActivity
+import com.example.project.module.user.AuthData.Companion.auth
 import com.tapadoo.alerter.Alerter
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -27,10 +25,20 @@ class LoginActivity : AppCompatActivity() {
             val password = passwordEditText.text.toString()
 
             if (email.isEmpty() || password.isEmpty()) {
-                Toast.makeText(applicationContext, "empty email or password", Toast.LENGTH_SHORT).show()
+                Alerter.create(this)
+                    .setTitle("Error")
+                    .setBackgroundColorRes(R.color.error)
+                    .setText("Empty Email or Password")
+                    .show()
+                Toast.makeText(applicationContext, "", Toast.LENGTH_SHORT).show()
             } else {
                 login(email,password)
             }
+        }
+
+        goRegisterBtn.setOnClickListener {
+            val intent = Intent(applicationContext, RegisterActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -46,7 +54,7 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     Alerter.create(this)
                         .setTitle("Error")
-                        .setBackgroundColorRes(R.color.alert_default_icon_color)
+                        .setBackgroundColorRes(R.color.error)
                         .setText("Authentication failed.")
                         .show()
                 }
