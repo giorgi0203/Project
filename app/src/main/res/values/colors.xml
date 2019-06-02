@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#99C5E7</color>
     <color name="colorAccent">#D81B60</color>
     <color name="error">#e06b31</color>
+    <color name="success">#6AE97E</color>
+    <color name="danger">#e06b31</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>

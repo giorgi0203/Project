@@ -3,23 +3,36 @@ package com.example.project.module.user.dashboard
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.Fragment
+import android.support.v4.view.ViewPager
+import android.view.View
 import com.example.project.R
 import com.example.project.module.auth.LoginActivity
 import com.example.project.module.user.AuthData
+import com.example.project.module.user.dashboard.adapters.NavigationAdapter
+import com.example.project.module.user.dashboard.fragments.FeedFragment
+import com.example.project.module.user.dashboard.fragments.GalleryFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class DashboardActivity : AppCompatActivity() {
 
+    private var isMenuOpen = false
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
         init()
+        loadFragments()
     }
 
     private fun init() {
+        addNewItem.visibility = View.GONE
+        logautBtn.visibility = View.GONE
         val database = FirebaseFirestore.getInstance()
         database.collection("users").document(AuthData.auth!!.currentUser!!.uid).get()
             .addOnSuccessListener {
@@ -28,8 +41,23 @@ class DashboardActivity : AppCompatActivity() {
             }
             .addOnFailureListener {
             }
+        setListeners()
 
-        lgoAuthBtn.setOnClickListener {
+    }
+
+    private fun setListeners() {
+        floatingMenuBtn.setOnClickListener {
+            if (isMenuOpen){
+                floatingMenuBtn.setImageResource(R.mipmap.baseline_add_black_18dp)
+                closeFloatingMenu()
+            }else {
+                floatingMenuBtn.setImageResource(R.mipmap.baseline_clear_black_18dp)
+                openFloatingMenu()
+            }
+
+        }
+
+        logautBtn.setOnClickListener {
             val intent = Intent(applicationContext, LoginActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
 
@@ -38,5 +66,54 @@ class DashboardActivity : AppCompatActivity() {
 
             startActivity(intent)
         }
+
+        navigation.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_home -> {
+//                    floatingMenuBtn.
+                    viewPager.currentItem = 0
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.navigation_dashboard -> {
+                    viewPager.currentItem = 1
+                    return@setOnNavigationItemSelectedListener true
+                }
+            }
+            false
+        }
+    }
+
+    private fun closeFloatingMenu() {
+        isMenuOpen=false
+        addNewItem.visibility = View.GONE
+        logautBtn.visibility = View.GONE
+    }
+
+    private fun openFloatingMenu() {
+        isMenuOpen=true
+        addNewItem.visibility = View.VISIBLE
+        logautBtn.visibility = View.VISIBLE
+    }
+
+    private fun loadFragments(){
+        val items = ArrayList<Fragment>()
+        items.add(FeedFragment())
+        items.add(GalleryFragment())
+
+        val adapter = NavigationAdapter(items,supportFragmentManager)
+        viewPager.adapter = adapter
+
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(p0: Int) {
+            }
+
+            override fun onPageScrolled(p0: Int, p1: Float, p2: Int) {
+            }
+
+            override fun onPageSelected(p0: Int) {
+                navigation.menu.getItem(p0).isChecked = true
+            }
+
+        })
     }
 }
