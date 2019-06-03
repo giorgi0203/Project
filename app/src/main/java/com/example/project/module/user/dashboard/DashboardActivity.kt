@@ -1,25 +1,31 @@
 package com.example.project.module.user.dashboard
 
+
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
+import android.support.v7.app.AlertDialog
 import android.view.View
 import com.example.project.R
 import com.example.project.module.auth.LoginActivity
+import com.example.project.module.user.AddImageActivity
 import com.example.project.module.user.AuthData
 import com.example.project.module.user.dashboard.adapters.NavigationAdapter
 import com.example.project.module.user.dashboard.fragments.FeedFragment
 import com.example.project.module.user.dashboard.fragments.GalleryFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_add_image.*
 import kotlinx.android.synthetic.main.activity_dashboard.*
 
 class DashboardActivity : AppCompatActivity() {
 
     private var isMenuOpen = false
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,10 +54,10 @@ class DashboardActivity : AppCompatActivity() {
     private fun setListeners() {
         floatingMenuBtn.setOnClickListener {
             if (isMenuOpen){
-                floatingMenuBtn.setImageResource(R.mipmap.baseline_add_black_18dp)
+                floatingMenuBtn.setImageResource(R.drawable.baseline_add_white_18dp)
                 closeFloatingMenu()
             }else {
-                floatingMenuBtn.setImageResource(R.mipmap.baseline_clear_black_18dp)
+                floatingMenuBtn.setImageResource(R.drawable.baseline_clear_white_18dp)
                 openFloatingMenu()
             }
 
@@ -66,6 +72,12 @@ class DashboardActivity : AppCompatActivity() {
 
             startActivity(intent)
         }
+        addNewItem.setOnClickListener {
+            val intent = Intent(applicationContext, AddImageActivity::class.java)
+            startActivity(intent)
+        }
+
+
 
         navigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
@@ -82,6 +94,8 @@ class DashboardActivity : AppCompatActivity() {
             false
         }
     }
+
+
 
     private fun closeFloatingMenu() {
         isMenuOpen=false
