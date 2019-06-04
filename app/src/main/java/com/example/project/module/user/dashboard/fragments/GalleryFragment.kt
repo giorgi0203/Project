@@ -3,7 +3,9 @@ package com.example.project.module.user.dashboard.fragments
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +13,7 @@ import android.view.ViewGroup
 import com.example.project.R
 import com.example.project.module.user.Image
 import com.example.project.module.user.dashboard.adapters.GalleryRecyclerViewAdapter
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_gallery.*
 
 
@@ -36,18 +39,33 @@ class GalleryFragment : Fragment() {
         addData()
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        galleryView.layoutManager = LinearLayoutManager(context)
-        adapter = GalleryRecyclerViewAdapter(images)
+        Log.d("adapter", "Error getting documents: ")
+
+        galleryView.layoutManager = GridLayoutManager(context,3)
+//        if (activity != null){
+            adapter = GalleryRecyclerViewAdapter(activity!!,images)
+//        }
+
         galleryView.adapter = adapter
         adapter!!.notifyDataSetChanged()
-
     }
 
     private fun addData() {
-        images.add(Image("https://picsum.photos/200/300","a","a","a"))
-        images.add(Image("https://picsum.photos/200/300","a","a","a"))
+        val db = FirebaseFirestore.getInstance()
+
+        db.collection("gallery")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    images.add(Image(document.get("url").toString(),document.get("title").toString(),document.get("description").toString(),document.get("userId").toString()))
+                }
+                adapter!!.notifyDataSetChanged()
+            }
+            .addOnFailureListener {
+                //                Log.d(TAG, "Error getting documents: ", exception)
+            }
     }
 
 
