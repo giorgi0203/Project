@@ -37,7 +37,7 @@ class DashboardActivity : AppCompatActivity() {
         loadFragments()
     }
 
-    @SuppressLint("RestrictedApi")
+//    @SuppressLint("RestrictedApi")
     private fun init() {
         addNewItem.visibility = View.GONE
         logautBtn.visibility = View.GONE
@@ -98,14 +98,14 @@ class DashboardActivity : AppCompatActivity() {
 
 
 
-    @SuppressLint("RestrictedApi")
+//    @SuppressLint("RestrictedApi")
     private fun closeFloatingMenu() {
         isMenuOpen=false
         addNewItem.visibility = View.GONE
         logautBtn.visibility = View.GONE
     }
 
-    @SuppressLint("RestrictedApi")
+//    @SuppressLint("RestrictedApi")
     private fun openFloatingMenu() {
         isMenuOpen=true
         addNewItem.visibility = View.VISIBLE
