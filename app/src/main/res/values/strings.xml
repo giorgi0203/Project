@@ -5,4 +5,6 @@
     <string name="title_home" tools:ignore="ExtraTranslation">Home</string>
     <string name="title_gallery">Gallery</string>
     <string name="title_notifications">Notifications</string>
+    <string name="property_transition" translatable="false">project_transition</string>
+    <string name="gallery_transition" translatable="false">gallery_transition</string>
 </resources>

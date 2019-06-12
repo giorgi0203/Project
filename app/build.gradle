@@ -1,6 +1,6 @@
 buildscript {
     repositories {
-        maven { url 'https://plugins.gradle.org/m2/'}
+        maven { url 'https://plugins.gradle.org/m2/' }
     }
     dependencies {
         classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:[0.11.0, 0.99.99]'
@@ -31,7 +31,7 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         manifestPlaceholders = [
-                onesignal_app_id: '9cac3f57-a6af-439e-9308-ca710514634c',
+                onesignal_app_id               : '9cac3f57-a6af-439e-9308-ca710514634c',
                 // Project number pulled from dashboard, local value is ignored.
                 onesignal_google_project_number: 'REMOTE'
         ]
@@ -58,7 +58,7 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-core:16.0.9'
     implementation 'com.google.firebase:firebase-auth:17.0.0'
-    implementation 'com.google.firebase:firebase-firestore:19.0.1'
+    implementation 'com.google.firebase:firebase-firestore:19.0.2'
     implementation 'com.google.firebase:firebase-storage:17.0.0'
     implementation 'com.firebaseui:firebase-ui-storage:5.0.0'
     implementation 'de.hdodenhof:circleimageview:3.0.0'
@@ -67,7 +67,9 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
 
-    implementation 'com.onesignal:OneSignal:[3.9.1, 3.99.99]'
+    implementation 'com.onesignal:OneSignal:3.10.9'
+    implementation 'com.koushikdutta.ion:ion:2.2.1'
+
 
 }
 

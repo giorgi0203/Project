@@ -15,6 +15,11 @@ import com.example.project.module.user.Image
 import com.example.project.module.user.dashboard.adapters.GalleryRecyclerViewAdapter
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.fragment_gallery.*
+import android.widget.LinearLayout
+import android.widget.TextView
+import android.widget.PopupWindow
+//import android.R
+import android.widget.Button
 
 
 /**
@@ -25,6 +30,14 @@ class GalleryFragment : Fragment() {
 
     val images: ArrayList<Image> = ArrayList()
     var adapter: GalleryRecyclerViewAdapter? = null
+
+    var popUp: PopupWindow? = null
+    var layout: LinearLayout? = null
+    var tv: TextView? = null
+    var params: ViewGroup.LayoutParams? = null
+    var mainLayout: LinearLayout? = null
+    var but: Button? = null
+    var click = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
